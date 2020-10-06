@@ -8,11 +8,11 @@
 
 ## Introduction
 
-Set the Jenkins build description with parameters
+Set the build description with parameters
 
 ## Getting started
 
-To use the plug in, you need add it to the build step, in your job configuration page.
+To use the plugin, you need add it to the build step, in your job configuration page.
 
 ## Issues
 
