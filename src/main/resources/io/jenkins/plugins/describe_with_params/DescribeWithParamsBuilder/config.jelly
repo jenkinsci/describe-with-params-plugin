@@ -3,4 +3,7 @@
 	<f:entry title="Exclude parameters" field="excludes">
 		<f:textbox />
 	</f:entry>
+	<f:entry title="Show starter's name" field="starter">
+		<f:checkbox default="true"/>
+	</f:entry>
 </j:jelly>

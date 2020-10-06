@@ -15,24 +15,33 @@ import org.kohsuke.stapler.DataBoundConstructor;
 
 public class DescribeWithParamsBuilder extends Builder {
     private final String excludes;
+    private final boolean starter;
 
     public String getExcludes() {
         return excludes;
     }
 
+    public boolean getStarter() {
+        return starter;
+    }
+
     @DataBoundConstructor
-    public DescribeWithParamsBuilder(String excludes) {
+    public DescribeWithParamsBuilder(String excludes, boolean starter) {
         super();
         this.excludes = excludes;
+        this.starter = starter;
     }
 
     @Override
     public boolean perform(AbstractBuild<?, ?> build, Launcher launcher, BuildListener listener) throws InterruptedException, IOException {
+        String desc = "";
+
+        if (starter) {
+            UserIdCause userIdCause = build.getCause(UserIdCause.class);
+            desc = "Started by " + userIdCause.getUserName() + "\n\r";
+        }
+
         String[] excludesArr = excludes.split(";");
-
-        UserIdCause userIdCause = build.getCause(UserIdCause.class);
-        String desc = "Started by " + userIdCause.getUserName() + "\n\r";
-
         Map<String, String> vars = build.getBuildVariables();
         for (Map.Entry<String, String> entry : vars.entrySet())
         {
