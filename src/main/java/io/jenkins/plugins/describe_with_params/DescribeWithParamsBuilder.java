@@ -14,14 +14,22 @@ import org.jenkinsci.Symbol;
 import org.kohsuke.stapler.DataBoundConstructor;
 
 public class DescribeWithParamsBuilder extends Builder {
+    private final String excludes;
+
+    public String getExcludes() {
+        return excludes;
+    }
 
     @DataBoundConstructor
-    public DescribeWithParamsBuilder() {
+    public DescribeWithParamsBuilder(String excludes) {
         super();
+        this.excludes = excludes;
     }
 
     @Override
     public boolean perform(AbstractBuild<?, ?> build, Launcher launcher, BuildListener listener) throws InterruptedException, IOException {
+        String[] excludesArr = excludes.split(";");
+
         UserIdCause userIdCause = build.getCause(UserIdCause.class);
         String desc = "Started by " + userIdCause.getUserName() + "\n\r";
 
@@ -31,7 +39,17 @@ public class DescribeWithParamsBuilder extends Builder {
             String key = entry.getKey();
             String value = entry.getValue();
 
-            desc = desc + key + ": " + value + "\n\r";
+            boolean found = false;
+            for (int i = 0; i < excludesArr.length; i++) {
+                if (excludesArr[i].equals(key)) {
+                    found = true;
+                    break;
+                }
+            }
+            
+            if (!found) {
+                desc = desc + key + ": " + value + "\n\r";
+            }
         }
 
         build.setDescription(desc);
