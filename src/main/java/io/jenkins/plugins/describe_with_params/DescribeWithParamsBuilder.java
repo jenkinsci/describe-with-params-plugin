@@ -23,16 +23,17 @@ public class DescribeWithParamsBuilder extends Builder {
     @Override
     public boolean perform(AbstractBuild<?, ?> build, Launcher launcher, BuildListener listener) throws InterruptedException, IOException {
         UserIdCause userIdCause = build.getCause(UserIdCause.class);
-        String desc = "Started by " + userIdCause.getUserName() + " ..\n\r";
+        String desc = "Started by " + userIdCause.getUserName() + "\n\r";
 
-        Map<String,String> vars = build.getBuildVariables();
+        Map<String, String> vars = build.getBuildVariables();
         for (Map.Entry<String, String> entry : vars.entrySet())
         {
-            String mapKey = entry.getKey();
-            String mapValue = entry.getValue();
+            String key = entry.getKey();
+            String value = entry.getValue();
 
-            desc = desc + mapKey + ": " + mapValue + "\n\r";
+            desc = desc + key + ": " + value + "\n\r";
         }
+
         build.setDescription(desc);
 
         return true;
