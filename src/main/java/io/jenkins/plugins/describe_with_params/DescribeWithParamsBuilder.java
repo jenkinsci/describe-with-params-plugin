@@ -2,7 +2,6 @@ package io.jenkins.plugins.describe_with_params;
 
 import java.io.IOException;
 import java.util.Map;
-import org.jenkinsci.Symbol;
 import hudson.Extension;
 import hudson.Launcher;
 import hudson.model.AbstractBuild;
@@ -11,9 +10,12 @@ import hudson.model.BuildListener;
 import hudson.model.Cause.UserIdCause;
 import hudson.tasks.Builder;
 import hudson.tasks.BuildStepDescriptor;
+import org.jenkinsci.Symbol;
+import org.kohsuke.stapler.DataBoundConstructor;
 
 public class DescribeWithParamsBuilder extends Builder {
 
+    @DataBoundConstructor
     public DescribeWithParamsBuilder() {
         super();
     }
@@ -21,7 +23,7 @@ public class DescribeWithParamsBuilder extends Builder {
     @Override
     public boolean perform(AbstractBuild<?, ?> build, Launcher launcher, BuildListener listener) throws InterruptedException, IOException {
         UserIdCause userIdCause = build.getCause(UserIdCause.class);
-        String desc = "Started by " + userIdCause.getUserName() + "\n\r";
+        String desc = "Started by " + userIdCause.getUserName() + " ..\n\r";
 
         Map<String,String> vars = build.getBuildVariables();
         for (Map.Entry<String, String> entry : vars.entrySet())
@@ -47,7 +49,7 @@ public class DescribeWithParamsBuilder extends Builder {
 
         @Override
         public String getDisplayName() {
-            return "describe with params";
+            return "Describe with params";
         }
 
     }
