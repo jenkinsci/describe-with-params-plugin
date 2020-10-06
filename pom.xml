@@ -20,6 +20,14 @@
     <name>Describe With Params Plugin</name>
     <url>https://github.com/jenkinsci/${project.artifactId}-plugin</url>
 
+    <developers>
+        <developer>
+            <id>liumazi</id>
+            <name>Liu Liu</name>
+            <email>71892967@qq.com</email>
+        </developer>
+    </developers>
+
     <dependencyManagement>
         <dependencies>
             <dependency>
