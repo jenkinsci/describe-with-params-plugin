@@ -14,22 +14,28 @@ import org.jenkinsci.Symbol;
 import org.kohsuke.stapler.DataBoundConstructor;
 
 public class DescribeWithParamsBuilder extends Builder {
-    private final String excludes;
     private final boolean starter;
-
-    public String getExcludes() {
-        return excludes;
-    }
+    private final String separator;
+    private final String excludes;
 
     public boolean getStarter() {
         return starter;
     }
 
+    public String getSeparator() {
+        return separator;
+    }
+
+    public String getExcludes() {
+        return excludes;
+    }    
+
     @DataBoundConstructor
-    public DescribeWithParamsBuilder(String excludes, boolean starter) {
+    public DescribeWithParamsBuilder(boolean starter, String separator, String excludes) {
         super();
-        this.excludes = excludes;
         this.starter = starter;
+        this.separator = separator;
+        this.excludes = excludes;
     }
 
     @Override
@@ -38,7 +44,7 @@ public class DescribeWithParamsBuilder extends Builder {
 
         if (starter) {
             UserIdCause userIdCause = build.getCause(UserIdCause.class);
-            desc = "Started by " + userIdCause.getUserName() + "\n\r";
+            desc = "Started by " + userIdCause.getUserName() + separator + "\n\r";
         }
 
         String[] excludesArr = excludes.split(";");
@@ -57,10 +63,11 @@ public class DescribeWithParamsBuilder extends Builder {
             }
             
             if (!found) {
-                desc = desc + key + ": " + value + "\n\r";
+                desc = desc + key + ": " + value + separator + "\n\r";
             }
         }
 
+        //build.setDescription(Jenkins.getActiveInstance().getMarkupFormatter().translate(desc));
         build.setDescription(desc);
 
         return true;
