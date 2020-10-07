@@ -4,56 +4,39 @@
     <parent>
         <groupId>org.jenkins-ci.plugins</groupId>
         <artifactId>plugin</artifactId>
-        <version>4.4</version>
+        <version>2.33</version>
         <relativePath />
     </parent>
-    <groupId>io.jenkins.plugins</groupId>
+    <groupId>io.jenkins-ci.plugins</groupId>
     <artifactId>describe-with-params</artifactId>
     <version>${revision}${changelist}</version>
     <packaging>hpi</packaging>
     <properties>
         <revision>1.0</revision>
         <changelist>-SNAPSHOT</changelist>
-        <jenkins.version>2.235.1</jenkins.version>
-        <java.level>8</java.level>
+        <jenkins.version>2.7.3</jenkins.version>
     </properties>
     <name>Describe With Params Plugin</name>
     <url>https://github.com/jenkinsci/${project.artifactId}-plugin</url>
-
     <developers>
         <developer>
-            <id>liumazi</id>
-            <name>Liu Liu</name>
+            <id>Liumazi</id>
+            <name>LiuLiu</name>
             <email>71892967@qq.com</email>
         </developer>
     </developers>
-
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>io.jenkins.tools.bom</groupId>
-                <artifactId>bom-2.235.x</artifactId>
-                <version>11</version>
-                <scope>import</scope>
-                <type>pom</type>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
-
     <licenses>
         <license>
             <name>MIT License</name>
             <url>https://opensource.org/licenses/MIT</url>
         </license>
     </licenses>
-
     <scm>
         <connection>scm:git:git://github.com/jenkinsci/${project.artifactId}-plugin.git</connection>
         <developerConnection>scm:git:git@github.com:jenkinsci/${project.artifactId}-plugin.git</developerConnection>
         <url>https://github.com/jenkinsci/${project.artifactId}-plugin</url>
         <tag>${scmTag}</tag>
     </scm>
-
     <repositories>
         <repository>
             <id>repo.jenkins-ci.org</id>
