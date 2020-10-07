@@ -1,4 +1,4 @@
 <?jelly escape-by-default='true'?>
 <div>
-    Set the build description with parameters.
+    Set the build description with parameters and starter.
 </div>
