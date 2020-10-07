@@ -14,7 +14,7 @@
     <properties>
         <revision>1.0</revision>
         <changelist>-SNAPSHOT</changelist>
-        <jenkins.version>2.7.3</jenkins.version>
+        <jenkins.version>2.164.3</jenkins.version>
     </properties>
     <name>Describe With Params Plugin</name>
     <url>https://github.com/jenkinsci/${project.artifactId}-plugin</url>
