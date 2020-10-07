@@ -1,4 +1,4 @@
-package org.jenkinsci.plugins.describe_with_params;
+package io.jenkins.plugins.describe_with_params;
 
 import java.io.IOException;
 import java.util.Map;
