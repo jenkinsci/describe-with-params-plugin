@@ -9,6 +9,8 @@ import hudson.Launcher;
 import hudson.model.AbstractBuild;
 import hudson.model.AbstractProject;
 import hudson.model.Cause.UserIdCause;
+import hudson.model.ParameterValue;
+import hudson.model.ParametersAction;
 import hudson.model.Run;
 import hudson.model.TaskListener;
 import hudson.tasks.Builder;
@@ -30,7 +32,7 @@ public class DescribeWithParamsBuilder extends Builder implements SimpleBuildSte
 
     public String getExcludes() {
         return excludes;
-    }    
+    }
 
     @DataBoundConstructor
     public DescribeWithParamsBuilder(boolean starter, String separator, String excludes) {
@@ -49,30 +51,46 @@ public class DescribeWithParamsBuilder extends Builder implements SimpleBuildSte
             desc = "Started by " + userIdCause.getUserName() + separator + "\n\r";
         }
 
+        String[] excludesArr = excludes.split(";");
+
         if (run instanceof AbstractBuild) {
             AbstractBuild build = (AbstractBuild)run;
-        
-            String[] excludesArr = excludes.split(";");
+
             Map<String, String> vars = build.getBuildVariables();
             for (Map.Entry<String, String> entry : vars.entrySet())
             {
-                String key = entry.getKey();
-                String value = entry.getValue();
+                String name = entry.getKey();
 
                 boolean found = false;
                 for (int i = 0; i < excludesArr.length; i++) {
-                    if (excludesArr[i].equals(key)) {
+                    if (excludesArr[i].equals(name)) {
                         found = true;
                         break;
                     }
                 }
-            
+
                 if (!found) {
-                    desc = desc + key + ": " + value + separator + "\n\r";
+                    desc = desc + name + ": " + entry.getValue() + separator + "\n\r";
                 }
-            }            
+            }
         } else {
-            desc = desc + "getBuildVariables failed" + separator + "\n\r";
+            for (ParametersAction action : run.getActions(ParametersAction.class)) {
+                for (ParameterValue param : action.getAllParameters()) {
+                    String name = param.getName();
+
+                    boolean found = false;
+                    for (int i = 0; i < excludesArr.length; i++) {
+                        if (excludesArr[i].equals(name)) {
+                            found = true;
+                            break;
+                        }
+                    }
+
+                    if (!found) {
+                        desc = desc + name + ": " + param.getValue().toString() + separator + "\n\r";
+                    }
+                }
+            }
         }
 
         //run.setDescription(Jenkins.getActiveInstance().getMarkupFormatter().translate(desc));
