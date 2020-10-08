@@ -12,16 +12,14 @@ Set the build description with parameters and starter, like this:
 
 ![build-history-desc.png](images/build-history-desc.png)
 
-## Usage
+## Usage for freeStyle job
 
-### For freeStyle job
-
-Add it to the build step, in your job configuration page. And setting it.
+Add it to the build step, in your job configuration page, and setting it.
 
 ![add-build-step](images/add-build-step.png)
 ![plugin-setting](images/plugin-setting.png)
 
-### For pipeline job
+## Usage for pipeline job
 ```
 step([$class: 'DescribeWithParamsBuilder', starter: 'true', separator: '', excludes: ''])
 ```
