@@ -1,4 +1,4 @@
-# describe-with-params
+# Describe With Params Plugin
 
 [![Build Status](https://ci.jenkins.io/job/Plugins/job/describe-with-params-plugin/job/master/badge/icon)](https://ci.jenkins.io/job/Plugins/job/describe-with-params-plugin/job/master/)
 [![Contributors](https://img.shields.io/github/contributors/jenkinsci/describe-with-params-plugin.svg)](https://github.com/jenkinsci/describe-with-params-plugin/graphs/contributors)
@@ -8,11 +8,23 @@
 
 ## Introduction
 
-Set the build description with parameters
+Set the build description with parameters and starter, like this:
 
-## Getting started
+![build-history-desc.png](images/build-history-desc.png)
 
-To use the plugin, you need add it to the build step, in your job configuration page.
+## Usage
+
+### For freeStyle job
+
+Add it to the build step, in your job configuration page. And setting it.
+
+![add-build-step](images/add-build-step.png)
+![plugin-setting](images/plugin-setting.png)
+
+### For pipeline job
+```
+step([$class: 'DescribeWithParamsBuilder', starter: 'true', separator: '', excludes: ''])
+```
 
 ## Issues
 
