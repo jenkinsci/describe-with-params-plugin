@@ -16,7 +16,7 @@ Set the build description with parameters and starter, like this:
 
 ---
 
-## Usage for freeStyle job
+## Usage for freestyle job
 
 Add it to the build step, in your job configuration page, and setting it.
 
