@@ -73,7 +73,6 @@ public class DescribeWithParamsBuilder extends Builder {
         return true;
     }
 
-    @Symbol("greet")
     @Extension
     public static final class DescriptorImpl extends BuildStepDescriptor<Builder> {
 
