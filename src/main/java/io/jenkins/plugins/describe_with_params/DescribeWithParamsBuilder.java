@@ -48,7 +48,12 @@ public class DescribeWithParamsBuilder extends Builder implements SimpleBuildSte
 
         if (starter) {
             UserIdCause userIdCause = run.getCause(UserIdCause.class);
-            desc = "Started by " + userIdCause.getUserName() + separator + "\n\r";
+            if (userIdCause != null) {
+                desc = "Started by " + userIdCause.getUserName() + separator + "\n\r";
+            }
+            else {
+                desc = "Started by unknown user" + separator + "\n\r";
+            }
         }
 
         String[] excludesArr = excludes.split(";");
@@ -87,7 +92,13 @@ public class DescribeWithParamsBuilder extends Builder implements SimpleBuildSte
                     }
 
                     if (!found) {
-                        desc = desc + name + ": " + param.getValue().toString() + separator + "\n\r";
+                        Object value = param.getValue();
+                        if (value != null) {
+                            desc = desc + name + ": " + value.toString() + separator + "\n\r";
+                        }
+                        else {
+                            desc = desc + name + ": unknown value" + separator + "\n\r";
+                        }
                     }
                 }
             }
