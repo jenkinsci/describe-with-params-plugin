@@ -44,15 +44,15 @@ public class DescribeWithParamsBuilder extends Builder implements SimpleBuildSte
 
     @Override
     public void perform(Run<?,?> run, FilePath workspace, Launcher launcher, TaskListener listener) throws InterruptedException, IOException {
-        String desc = "";
+        StringBuilder descStr = new StringBuilder();
 
         if (starter) {
             UserIdCause userIdCause = run.getCause(UserIdCause.class);
             if (userIdCause != null) {
-                desc = "Started by " + userIdCause.getUserName() + separator + "\n\r";
+                descStr.append("Started by " + userIdCause.getUserName() + separator + "\n\r");
             }
             else {
-                desc = "Started by unknown user" + separator + "\n\r";
+                descStr.append("Started by unknown user" + separator + "\n\r");
             }
         }
 
@@ -75,7 +75,7 @@ public class DescribeWithParamsBuilder extends Builder implements SimpleBuildSte
                 }
 
                 if (!found) {
-                    desc = desc + name + ": " + entry.getValue() + separator + "\n\r";
+                    descStr.append(name + ": " + entry.getValue() + separator + "\n\r");
                 }
             }
         } else {
@@ -94,10 +94,10 @@ public class DescribeWithParamsBuilder extends Builder implements SimpleBuildSte
                     if (!found) {
                         Object value = param.getValue();
                         if (value != null) {
-                            desc = desc + name + ": " + value.toString() + separator + "\n\r";
+                            descStr.append(name + ": " + value.toString() + separator + "\n\r");
                         }
                         else {
-                            desc = desc + name + ": unknown value" + separator + "\n\r";
+                            descStr.append(name + ": unknown value" + separator + "\n\r");
                         }
                     }
                 }
@@ -105,7 +105,7 @@ public class DescribeWithParamsBuilder extends Builder implements SimpleBuildSte
         }
 
         //run.setDescription(Jenkins.getActiveInstance().getMarkupFormatter().translate(desc));
-        run.setDescription(desc);
+        run.setDescription(descStr.toString());
     }
 
     @Extension
